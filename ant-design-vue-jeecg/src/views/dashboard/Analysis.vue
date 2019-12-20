@@ -1,6 +1,6 @@
 <template>
   <div class="page-header-index-wide">
-    <a-row :gutter="24">
+    <!--<a-row :gutter="24">
       <a-col :sm="24" :md="12" :xl="6" :style="{ marginBottom: '24px' }">
         <chart-card :loading="loading" title="总销售额" total="￥126,560">
           <a-tooltip title="指标说明" slot="action">
@@ -97,12 +97,12 @@
           </a-tab-pane>
         </a-tabs>
       </div>
-    </a-card>
+    </a-card>-->
 
     <a-row>
       <a-col :span="24">
-        <a-card :loading="loading" :bordered="false" title="最近一周访问次数统计" :style="{ marginTop: '24px' }">
-          <a-row>
+        <a-card :loading="loading" :bordered="false" title="有害气体浓度走势图" :style="{ marginTop: '24px' }">
+          <!--<a-row>
             <a-col :span="6">
               <head-info title="今日访问IP数" :content="loginfo.todayIp"></head-info>
             </a-col>
@@ -127,7 +127,7 @@
                 <a-icon slot="indicator" type="rise" style="font-size: 24px"  />
               </a-spin>
             </a-col>
-          </a-row>
+          </a-row>-->
           <line-chart-multid :fields="visitFields" :dataSource="visitInfo"></line-chart-multid>
         </a-card>
       </a-col>
@@ -186,10 +186,10 @@
         rankList,
         barData,
         loginfo:{},
-        visitFields:['ip','visit'],
+        visitFields:['h2s','co'],
         visitInfo:[],
         indicator: <a-icon type="loading" style="font-size: 24px" spin />
-      }
+    }
     },
     created() {
       setTimeout(() => {
@@ -209,10 +209,10 @@
         })
         getVisitInfo().then(res=>{
           if(res.success){
-             console.log("aaaaaa",res.result)
-             this.visitInfo = res.result;
-           }
-         })
+            console.log("aaaaaa",res.result)
+            this.visitInfo = res.result;
+          }
+        })
       },
     }
   }

@@ -24,16 +24,38 @@
     
    	<!-- 首页访问统计 -->
     <select id="findVisitCount" resultType="java.util.HashMap">
-       <if test="dbType == 'MYSQL'">
+       <!--<if test="dbType == 'MYSQL'">
          select count(*) as visit
         	   ,count(distinct(ip)) as ip
         	   ,DATE_FORMAT(create_time, '%Y-%m-%d') as tian
         	   ,DATE_FORMAT(create_time, '%m-%d') as type
-        	   from sys_log 
+        	   from sys_log
          where log_type = 1 and create_time &gt;= #{dayStart} and create_time &lt; #{dayEnd}
          group by tian,type
          order by tian asc
-       </if>
+       </if>-->
+        <if test="dbType == 'MYSQL'">
+            select avg(co) as co,
+            avg(h2s) as h2s
+            ,DATE_FORMAT(create_time, '%Y-%m-%d %H:%i:%s') as tian
+            ,DATE_FORMAT(create_time, '%H:%i') as type
+            from gas_concentration
+            where  node_no=1  and create_time &gt;= '2019-12-02 17:30:00' and create_time &lt; '2019-12-02 17:52:00'
+            group by tian,type
+            order by tian asc
+        </if>
+        <!--<if test="dbType == 'MYSQL'">
+            select co as co
+            ,h2s as h2s
+            ,DATE_FORMAT(create_time, '%Y-%m-%d %H:%i:%s') as tian
+            ,DATE_FORMAT(create_time, '%H:%i') as type
+            from gas_concentration
+            where  node_no=1  and create_time &gt;= '2019-12-02 17:30:00' and create_time &lt; '2019-12-02 17:52:00'
+            group by tian,gas_type,type
+            order by tian asc
+        </if>-->
+
+
        <if test="dbType == 'ORACLE'">
         select count(*) as visit
         	   ,count(distinct(ip)) as ip
